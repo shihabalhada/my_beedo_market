@@ -1,4 +1,5 @@
 import 'package:my_beedo_market/pages/login_page.dart';
+import 'package:my_beedo_market/pages/payment_page.dart';
 import 'package:my_beedo_market/pages/product_details_page.dart';
 import 'package:my_beedo_market/pages/product_page.dart';
 import 'package:my_beedo_market/pages/signup_page.dart';
@@ -10,6 +11,7 @@ class RouteHelper {
   static const String signUp = "/sign-up";
   static const String login = "/login";
   static const String product="/product";
+  static const String payment="/payment";
   //هذا مابش معي له صفحة
   static const String productByCategoryId="/productByCategoryId";
 
@@ -18,6 +20,8 @@ class RouteHelper {
   static String getSignUp() => "$signUp";
 
   static String getLogin() => "$login";
+
+  static String getPayment() => "$payment";
 
   static String getProduct(int productId) => "$product?productId=$productId";
 
@@ -39,6 +43,12 @@ class RouteHelper {
         name: login,
         page: (){
           return LoginPage();
+        }
+    ),
+    GetPage(
+        name: payment,
+        page: (){
+          return PaymentPage();
         }
     ),
     GetPage(

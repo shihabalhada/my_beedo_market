@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_beedo_market/controllers/product_controller.dart';
 import 'package:my_beedo_market/pages/product_page.dart';
 import 'package:my_beedo_market/routes/route_helper.dart';
 
@@ -14,6 +15,7 @@ void main() async{
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Get.find<ProductController>().getProducts();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Beedo Market',
