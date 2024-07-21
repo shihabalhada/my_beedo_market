@@ -10,6 +10,7 @@ class ProductView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    productController.getProducts();
     return Scaffold(
       appBar: AppBar(
         title: Text('Products'),
@@ -28,6 +29,7 @@ class ProductView extends StatelessWidget {
                 title: Text(product.productName+''+product.productId.toString()),
                 subtitle: Text(product.productDescription),
                 onTap: () {
+                  //هذا لعرض تفاصيل المنتج
                   productController.getProductById(product.productId);
                   Get.toNamed(RouteHelper.getProduct(product.productId));
                 },
