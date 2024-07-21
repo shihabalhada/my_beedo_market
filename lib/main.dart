@@ -1,0 +1,25 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:my_beedo_market/pages/product_page.dart';
+import 'package:my_beedo_market/routes/route_helper.dart';
+
+import 'helper/dependencies.dart';
+
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await init();
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Beedo Market',
+      home: ProductView(),
+      initialRoute: RouteHelper.login,
+      getPages: RouteHelper.routes,
+    );
+  }
+}
