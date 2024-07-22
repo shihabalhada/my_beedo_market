@@ -1,3 +1,4 @@
+import 'package:my_beedo_market/controllers/address_controller.dart';
 import 'package:my_beedo_market/controllers/categories_controller.dart';
 import 'package:my_beedo_market/pages/category_page.dart';
 import 'package:my_beedo_market/routes/route_helper.dart';
@@ -29,6 +30,14 @@ class ProductView extends StatelessWidget {
                 Get.toNamed(RouteHelper.getPayment());
               },
               child: Text("Payment"),
+            ),
+            SizedBox(height: 10,),
+            GestureDetector(
+              onTap: (){
+
+                Get.toNamed(RouteHelper.getAddress());
+              },
+              child: Text("Address"),
             ),
             SizedBox(height: 20,),
             CategoryPage(),

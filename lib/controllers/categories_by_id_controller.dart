@@ -1,26 +1,26 @@
 import 'package:get/get.dart';
-import 'package:my_beedo_market/data/repository/categories_repo.dart';
 import 'package:my_beedo_market/models/category_model.dart';
+import '../data/repository/categories_by_id_repo.dart';
 
-class CategoryController extends GetxController {
-  final CategoryRepo categoryRepo;
+class CategoriesByIdController extends GetxController {
+  final CategoriesByIdRepo categoriesByIdRepo;
   bool isLoading = false;
-  List<Category> categories = [];
   List<Category> categoriesById = [];
 
 
-  CategoryController({required this.categoryRepo});
+  CategoriesByIdController({required this.categoriesByIdRepo});
 
-  Future<void> fetchCategories() async {
+
+  Future<void> getCategoryById(int id) async{
     try {
       isLoading = true;
       update();
 
-      Response response = await categoryRepo.getCategories();
+      Response response = await categoriesByIdRepo.getCategoriesById(id);
 
       if (response.statusCode == 200) {
         var categoryList = response.body as List;
-        categories = categoryList.map((c) => Category.fromJson(c)).toList();
+        categoriesById = categoryList.map((c) => Category.fromJson(c)).toList();
       } else {
         Get.snackbar('Error', response.statusText ?? 'Failed to fetch categories');
       }
@@ -31,5 +31,6 @@ class CategoryController extends GetxController {
       update();
     }
   }
+
 
 }
