@@ -66,13 +66,14 @@ class AddressController extends GetxController {
       isLoading.value = true;
       Response response = await addressRepo.getAddresses(token);
       if (response.statusCode == 200) {
-        var addressesJson = response.body as List;
-        addresses.value = addressesJson.map((json) => Address.fromJson(json)).toList();
+        Get.snackbar('Success', 'getting address success');
+        // var addressesJson = response.body as List;
+        // addresses.value = addressesJson.map((json) => Address.fromJson(json)).toList();
       } else {
         Get.snackbar('Error', response.statusText ?? 'Failed to get addresses');
       }
     } catch (e) {
-      Get.snackbar('Error', 'Failed to get addresses');
+      Get.snackbar('Error', 'Failed to get addresses..........');
     } finally {
       isLoading.value = false;
     }

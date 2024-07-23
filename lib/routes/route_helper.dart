@@ -3,6 +3,7 @@ import 'package:my_beedo_market/pages/payment_page.dart';
 import 'package:my_beedo_market/pages/product_by_category.dart';
 import 'package:my_beedo_market/pages/product_details_page.dart';
 import 'package:my_beedo_market/pages/product_page.dart';
+import 'package:my_beedo_market/pages/profile_page.dart';
 import 'package:my_beedo_market/pages/signup_page.dart';
 import 'package:get/get.dart';
 
@@ -17,20 +18,23 @@ class RouteHelper {
   static const String payment="/payment";
   static const String productByCategoryId="/productByCategoryId";
   static const String address="/address";
+  static const String profile="/profile";
 
-  static String getHome() => "$home";
+  static String getHome() => home;
 
-  static String getSignUp() => "$signUp";
+  static String getSignUp() => signUp;
 
-  static String getLogin() => "$login";
+  static String getLogin() => login;
 
-  static String getPayment() => "$payment";
+  static String getPayment() => payment;
 
   static String getProduct(int productId) => "$product?productId=$productId";
 
   static String getProductByCategoryId(int categoryId) => "$productByCategoryId?categoryId=$categoryId";
 
-  static String getAddress() => "$address";
+  static String getAddress() => address;
+
+  static String getProfile() => profile;
 
   static List<GetPage> routes = [
     GetPage(
@@ -60,6 +64,12 @@ class RouteHelper {
         name: address,
         page: (){
           return AddressPage();
+        }
+    ),
+    GetPage(
+        name: profile,
+        page: (){
+          return ProfilePage();
         }
     ),
     GetPage(

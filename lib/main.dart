@@ -16,8 +16,8 @@ void main() async{
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // Get.find<ProductController>().getProducts();
-    // Get.find<CategoryController>().fetchCategories();
+    Get.find<ProductController>().getProducts();
+    Get.find<CategoryController>().fetchCategories();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Beedo Market',

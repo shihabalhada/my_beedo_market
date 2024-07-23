@@ -8,7 +8,11 @@ import 'package:my_beedo_market/data/api/api_client.dart';
 import 'package:my_beedo_market/utils/app_constants.dart';
 
 class AddressPage extends StatelessWidget {
-  final AddressController addressController = Get.find<AddressController>();
+  final AddressController addressController = Get.put(AddressController(
+    addressRepo: AddressRepo(
+      apiClient: ApiClient(appBaseUrl: AppConstants.BASE_URL),
+    ),
+  ));
 
   @override
   Widget build(BuildContext context) {

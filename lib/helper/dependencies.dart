@@ -2,12 +2,14 @@ import 'package:my_beedo_market/controllers/address_controller.dart';
 import 'package:my_beedo_market/controllers/categories_by_id_controller.dart';
 import 'package:my_beedo_market/controllers/payment_controller.dart';
 import 'package:my_beedo_market/controllers/product_controller.dart';
+import 'package:my_beedo_market/controllers/profile_controller.dart';
 import 'package:my_beedo_market/data/repository/address_repo.dart';
 import 'package:my_beedo_market/data/repository/categories_by_id_repo.dart';
 import 'package:my_beedo_market/data/repository/payment_repo.dart';
 import 'package:my_beedo_market/data/repository/product_repo.dart';
 import 'package:get/get.dart';
 import 'package:my_beedo_market/data/api/api_client.dart';
+import 'package:my_beedo_market/data/repository/profile_repo.dart';
 import 'package:my_beedo_market/utils/app_constants.dart';
 
 import '../controllers/categories_controller.dart';
@@ -29,6 +31,7 @@ Future<void> init()async{
   Get.lazyPut(() =>PaymentRepo(apiClient: Get.find()));
   Get.lazyPut(() =>CategoriesByIdRepo(apiClient: Get.find()));
   Get.lazyPut(() =>AddressRepo(apiClient: Get.find()));
+  Get.lazyPut(() =>ProfileRepo(apiClient: Get.find()));
 
 
   //controllers
@@ -39,5 +42,6 @@ Future<void> init()async{
   Get.lazyPut(() => PaymentController(paymentRepo: Get.find()));
   Get.lazyPut(() => CategoriesByIdController(categoriesByIdRepo: Get.find()));
   Get.lazyPut(() => AddressController(addressRepo: Get.find()));
+  Get.lazyPut(() => ProfileController(profileRepo: Get.find()));
 
 }

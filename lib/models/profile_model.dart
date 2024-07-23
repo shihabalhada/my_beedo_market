@@ -1,12 +1,14 @@
 class Profile{
-  String token;
   String name;
+  String? token;
+  String? email;
   String? phone;
   String? gender;
   String? birthday;
 
   Profile({
-    required this.token,
+    this.email,
+    this.token,
     required this.name,
     this.phone,
     this.gender,
@@ -15,8 +17,9 @@ class Profile{
 
   factory Profile.fromJson(Map<String, dynamic> json) {
     return Profile(
-      token: json['token'],
       name: json['name'],
+      // token: json['token'],
+      email: json['email'],
       phone: json['phone'],
       gender: json['gender'],
       birthday: json['birthday'],
@@ -26,7 +29,7 @@ class Profile{
 
   Map<String, dynamic> toJson() {
     var data = {
-      'token': token,
+      'token':token,
       'name': name,
     };
     if (phone != null) {
@@ -37,6 +40,9 @@ class Profile{
     }
     if (birthday != null) {
       data['birthday'] = birthday as String;
+    }
+    if(email != null){
+      data['email'] = email as String;
     }
     return data;
   }

@@ -10,7 +10,7 @@ class ProfileRepo {
   ProfileRepo({required this.apiClient});
 
   Future<Response> getProfile(String token) async {
-    return await apiClient.getData(AppConstants.PROFILE_URI);
+    return await apiClient.getData(AppConstants.PROFILE_URI+"?token=$token");
   }
 
   Future<Response> updateProfile(Profile profile) async {

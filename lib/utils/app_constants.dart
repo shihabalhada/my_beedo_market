@@ -26,8 +26,8 @@ class AppConstants{
   static const String GET_PRODUCTS_BY_CATEGORY_ID_URI = 'api/categories/subcategory_products';
   static const String GET_PRODUCTS_BY_SUB_CATEGORY_ID_URI='api/categories/subcategory_products';
   static const String CHANGE_PASSWORD_URI = 'api/change-password';
-  static const String PROFILE_URI = 'api/profile';
-  static const String UPDATE_PROFILE_URI = 'api/profile/update';
+  static const String PROFILE_URI = 'api/auth/me/';
+  static const String UPDATE_PROFILE_URI = 'api/auth/edit-profile';
 
 
   static const String TOKEN="";

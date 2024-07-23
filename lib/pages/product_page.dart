@@ -39,6 +39,14 @@ class ProductView extends StatelessWidget {
               },
               child: Text("Address"),
             ),
+            SizedBox(height: 10,),
+            GestureDetector(
+              onTap: (){
+
+                Get.toNamed(RouteHelper.getProfile());
+              },
+              child: Text("Profile"),
+            ),
             SizedBox(height: 20,),
             CategoryPage(),
             SizedBox(height: 20,),
