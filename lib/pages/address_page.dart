@@ -34,7 +34,7 @@ class AddressPage extends StatelessWidget {
           itemBuilder: (context, index) {
             var address = addressController.addresses[index];
             return ListTile(
-              title: Text('${address.firstname} ${address.lastname}'),
+              title: Text('${address.phone} ${address.address}'),
               subtitle: Text('${address.city}, ${address.country}'),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -103,6 +103,7 @@ class AddressForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String token = GetStorage().read('token');
     final firstnameController = TextEditingController(text: address.firstname);
     final lastnameController = TextEditingController(text: address.lastname);
     final phoneController = TextEditingController(text: address.phone);
@@ -197,8 +198,8 @@ class AddressForm extends StatelessWidget {
           onPressed: () {
             if (_formKey.currentState!.validate()) {
               final updatedAddress = Address(
-                id: address.id,
-                token: address.token,
+                id: address.id??1,
+                token: token,
                 firstname: firstnameController.text,
                 lastname: lastnameController.text,
                 phone: phoneController.text,

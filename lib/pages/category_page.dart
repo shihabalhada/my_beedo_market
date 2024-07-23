@@ -33,7 +33,7 @@ class CategoryPage extends StatelessWidget {
                 return ListTile(
                   title: GestureDetector(
                     onTap: () {
-                      Get.lazyPut(()=>CategoriesByIdController(categoriesByIdRepo: Get.find()));
+                      // Get.lazyPut(()=>CategoriesByIdController(categoriesByIdRepo: Get.find()));
                       Get.toNamed(RouteHelper.getProductByCategoryId(category.id));
                     },
                       child: Text(subCategory.name+" "+subCategory.id.toString()),

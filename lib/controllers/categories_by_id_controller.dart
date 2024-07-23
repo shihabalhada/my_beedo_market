@@ -19,13 +19,15 @@ class CategoriesByIdController extends GetxController {
       Response response = await categoriesByIdRepo.getCategoriesById(id);
 
       if (response.statusCode == 200) {
-        var categoryList = response.body as List;
-        categoriesById = categoryList.map((c) => Category.fromJson(c)).toList();
+        if(response.body !=null){
+          var categoryByIdList = response.body as List;
+          categoriesById = categoryByIdList.map((c) => Category.fromJson(c)).toList();
+        }
       } else {
         Get.snackbar('Error', response.statusText ?? 'Failed to fetch categories');
       }
     } catch (e) {
-      Get.snackbar('Error', 'Failed to fetch categories.......');
+      Get.snackbar('Error', 'Failed to fetch categories.......'+e.toString());
     } finally {
       isLoading = false;
       update();

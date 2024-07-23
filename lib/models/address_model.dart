@@ -1,8 +1,8 @@
 class Address {
   int? id;
-  String token;
-  String firstname;
-  String lastname;
+  String? token;
+  String? firstname;
+  String? lastname;
   String phone;
   String country;
   String city;
@@ -11,9 +11,9 @@ class Address {
 
   Address({
     this.id,
-    required this.token,
-    required this.firstname,
-    required this.lastname,
+    this.token,
+    this.firstname,
+    this.lastname,
     required this.phone,
     required this.country,
     required this.city,

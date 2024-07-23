@@ -9,7 +9,8 @@ class CategoriesByIdRepo extends GetxService {
   CategoriesByIdRepo({required this.apiClient});
 
   Future<Response> getCategoriesById(int id) async {
-    return await apiClient.getData("${AppConstants.CATEGORIES_BY_ID_URI}/$id");
+
+    return await apiClient.getData("${AppConstants.CATEGORIES_BY_ID_URI}$id/");
   }
 
 }

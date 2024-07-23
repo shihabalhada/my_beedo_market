@@ -15,7 +15,7 @@ class AddressController extends GetxController {
       isLoading.value = true;
       Response response = await addressRepo.addAddress(address);
       if (response.statusCode == 200) {
-        getAddresses(address.token);
+        getAddresses(address.token!);
         Get.snackbar('Success', 'Address added successfully');
       } else {
         Get.snackbar('Error', response.statusText ?? 'Failed to add address');
@@ -32,7 +32,7 @@ class AddressController extends GetxController {
       isLoading.value = true;
       Response response = await addressRepo.updateAddress(address);
       if (response.statusCode == 200) {
-        getAddresses(address.token);
+        getAddresses(address.token!);
         Get.snackbar('Success', 'Address updated successfully');
       } else {
         Get.snackbar('Error', response.statusText ?? 'Failed to update address');
@@ -67,8 +67,8 @@ class AddressController extends GetxController {
       Response response = await addressRepo.getAddresses(token);
       if (response.statusCode == 200) {
         Get.snackbar('Success', 'getting address success');
-        // var addressesJson = response.body as List;
-        // addresses.value = addressesJson.map((json) => Address.fromJson(json)).toList();
+        var addressesJson = response.body as List;
+        addresses.value = addressesJson.map((json) => Address.fromJson(json)).toList();
       } else {
         Get.snackbar('Error', response.statusText ?? 'Failed to get addresses');
       }

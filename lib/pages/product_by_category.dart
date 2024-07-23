@@ -5,16 +5,18 @@ import 'package:my_beedo_market/controllers/categories_controller.dart';
 
 class ProductByCategoryPage extends StatelessWidget {
   final int id;
-  final CategoriesByIdController categoriesByIdController = Get.find<CategoriesByIdController>();
-  ProductByCategoryPage({super.key, required this.id});
+  // final CategoriesByIdController categoriesByIdController = Get.find<CategoriesByIdController>();
+  // final CategoryController categoryController = Get.find<CategoryController>();
+  ProductByCategoryPage({required this.id});
 
   @override
   Widget build(BuildContext context) {
-    categoriesByIdController.getCategoryById(id);
+    // categoriesByIdController.getCategoryById(id);
+    Get.find<CategoryController>().fetchCategories();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Products by Category $id'),
+        title: const Text('Products by Category'+'$id'),
       ),
       body: GetBuilder<CategoryController>(
         builder: (categoryController) {
@@ -23,13 +25,27 @@ class ProductByCategoryPage extends StatelessWidget {
           }
 
           return ListView.builder(
-            itemCount: categoryController.categoriesById.length,
+            shrinkWrap: true,
+            itemCount: 1,
             itemBuilder: (context, index) {
-              var category = categoryController.categoriesById[index];
-              return ListTile(
-                title: Text(category.name),
-                subtitle: Text('Category ID: ${category.id}'),
-              );
+              var category = categoryController.categories[index];
+              if(category.id==id){
+                return ExpansionTile(
+                  title: Text(category.name+" "+category.id.toString()),
+                  children: category.subCategories.map((subCategory) {
+                    return ListTile(
+                      title: GestureDetector(
+                        onTap: () {
+                          // Get.lazyPut(()=>CategoriesByIdController(categoriesByIdRepo: Get.find()));
+                          // Get.toNamed(RouteHelper.getProductByCategoryId(category.id));
+                        },
+                        child: Text(subCategory.name+" "+subCategory.id.toString()),
+                      ),
+                    );
+                  }).toList(),
+                );
+              }
+
             },
           );
         },

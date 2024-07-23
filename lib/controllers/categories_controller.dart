@@ -6,7 +6,6 @@ class CategoryController extends GetxController {
   final CategoryRepo categoryRepo;
   bool isLoading = false;
   List<Category> categories = [];
-  List<Category> categoriesById = [];
 
 
   CategoryController({required this.categoryRepo});

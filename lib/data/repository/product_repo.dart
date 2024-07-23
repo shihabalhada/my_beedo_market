@@ -17,10 +17,10 @@ class ProductRepo extends GetxService {
   }
 
   Future<Response> getProductsByCategoryId(int categoryId) async {
-    return await apiClient.getData('${AppConstants.GET_PRODUCTS_BY_CATEGORY_ID_URI}/$categoryId');
+    return await apiClient.getData('${AppConstants.GET_PRODUCTS_BY_CATEGORY_ID_URI}$categoryId');
   }
 
-  Future<Response> getProductsBySubCategoryId(int subCategoryId) async {
-    return await apiClient.getData('${AppConstants.GET_PRODUCTS_BY_CATEGORY_ID_URI}/$subCategoryId');
+  Future<Response> getProductsBySubCategoryId(int categoryId,int subCategoryId) async {
+    return await apiClient.getData('${AppConstants.GET_PRODUCTS_BY_CATEGORY_ID_URI}/$categoryId/$subCategoryId');
   }
 }

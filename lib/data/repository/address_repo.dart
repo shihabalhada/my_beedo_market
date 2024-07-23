@@ -21,9 +21,9 @@ class AddressRepo extends GetxService {
   }
 
   Future<Response> getAddresses(String token) async {
-    Map<String, dynamic> body = [
-      'token',token
-    ] as Map<String, dynamic>;
-    return await apiClient.postData(AppConstants.GET_ADDRESSES_URI,body);
+    // Map<String, dynamic> body = [
+    //   'token',token
+    // ] as Map<String, dynamic>;
+    return await apiClient.getData(AppConstants.GET_ADDRESSES_URI+"?token=$token");
   }
 }

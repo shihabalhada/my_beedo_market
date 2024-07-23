@@ -9,7 +9,7 @@ class AppConstants{
   static const String LOGIN_URI = "api/auth/login";
   static const String SIGNUP_URI = "api/auth/register";
   static const String ADDRESS_URI = "api/customer/address/edit/";
-  static const String ADD_TO_FAVORITE_URI = "api/favorite/add_to_favorite/";
+  static const String ADD_TO_FAVORITE_URI = "api/favorite/add_to_favorite";
   static const String GET_FAVORITE_URI = "api/auth/my-favorite";
   static const String DELETE_FROM_FAVORITE_URI = "api/favorite/delete/";
   static const String CATEGORIES_URI = "api/categories/";
@@ -17,13 +17,13 @@ class AppConstants{
   static const String ADD_CATEGORY_URI = "";
   static const String UPDATE_CATEGORY_URI = "";
   static const String DELETE_CATEGORY_URI = "";
-  static const String ADD_ADDRESS_URI = 'api/customer/address/create/';
+  static const String ADD_ADDRESS_URI = 'api/customer/address/create';
   static const String UPDATE_ADDRESS_URI = 'api/customer/address/update/';
   static const String DELETE_ADDRESS_URI = 'api/customer/address/delete/';
-  static const String GET_ADDRESSES_URI = 'api/addresses';
-  static const String GET_ALL_PRODUCTS_URI = 'api/products';
+  static const String GET_ADDRESSES_URI = 'api/auth/my-addresses';
+  static const String GET_ALL_PRODUCTS_URI = 'api/products/';
   static const String GET_PRODUCT_BY_ID_URI = 'api/products/detail';
-  static const String GET_PRODUCTS_BY_CATEGORY_ID_URI = 'api/categories/subcategory_products';
+  static const String GET_PRODUCTS_BY_CATEGORY_ID_URI = 'api/categories/subcategory_products/';
   static const String GET_PRODUCTS_BY_SUB_CATEGORY_ID_URI='api/categories/subcategory_products';
   static const String CHANGE_PASSWORD_URI = 'api/change-password';
   static const String PROFILE_URI = 'api/auth/me/';

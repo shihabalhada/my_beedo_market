@@ -16,10 +16,8 @@ class ProfileController extends GetxController {
       isLoading.value = true;
       Response response = await profileRepo.getProfile(token);
       if (response.statusCode == 200) {
-        Get.snackbar('Success', 'get profile success');
         var profileList = List<Profile>.from(response.body.map((p) => Profile.fromJson(p)));
         profile(profileList);
-        // profile = Profile.fromJson(response.body);
       } else {
         Get.snackbar('Error', response.statusText! +"  error"+response.statusCode.toString()?? 'Failed to fetch profile');
       }
