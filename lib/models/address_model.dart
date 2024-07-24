@@ -1,8 +1,8 @@
 class Address {
   int? id;
   String? token;
-  String? firstname;
-  String? lastname;
+  String firstname;
+  String lastname;
   String phone;
   String country;
   String city;
@@ -12,8 +12,8 @@ class Address {
   Address({
     this.id,
     this.token,
-    this.firstname,
-    this.lastname,
+    required this.firstname,
+    required this.lastname,
     required this.phone,
     required this.country,
     required this.city,
@@ -48,6 +48,9 @@ class Address {
     };
     if (id != null) {
       data['id'] = id as String;
+    }
+    if(token != null){
+      data['token'] = token as String;
     }
     return data;
   }

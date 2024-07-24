@@ -7,7 +7,7 @@ class ProductByCategoryPage extends StatelessWidget {
   final int id;
   // final CategoriesByIdController categoriesByIdController = Get.find<CategoriesByIdController>();
   // final CategoryController categoryController = Get.find<CategoryController>();
-  ProductByCategoryPage({required this.id});
+  ProductByCategoryPage({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class ProductByCategoryPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Products by Category'+'$id'),
+        title: const Text('Products by Category'),
       ),
       body: GetBuilder<CategoryController>(
         builder: (categoryController) {
@@ -26,7 +26,7 @@ class ProductByCategoryPage extends StatelessWidget {
 
           return ListView.builder(
             shrinkWrap: true,
-            itemCount: 1,
+            itemCount: categoryController.categories.length,
             itemBuilder: (context, index) {
               var category = categoryController.categories[index];
               if(category.id==id){

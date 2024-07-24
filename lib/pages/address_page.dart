@@ -198,7 +198,7 @@ class AddressForm extends StatelessWidget {
           onPressed: () {
             if (_formKey.currentState!.validate()) {
               final updatedAddress = Address(
-                id: address.id??1,
+                id: address.id,
                 token: token,
                 firstname: firstnameController.text,
                 lastname: lastnameController.text,

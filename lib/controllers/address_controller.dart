@@ -15,7 +15,7 @@ class AddressController extends GetxController {
       isLoading.value = true;
       Response response = await addressRepo.addAddress(address);
       if (response.statusCode == 200) {
-        getAddresses(address.token!);
+        // getAddresses(address.token!);
         Get.snackbar('Success', 'Address added successfully');
       } else {
         Get.snackbar('Error', response.statusText ?? 'Failed to add address');
