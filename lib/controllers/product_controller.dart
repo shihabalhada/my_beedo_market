@@ -45,7 +45,6 @@ class ProductController extends GetxController {
       productbycategory(productList);
     }
     isLoading(false);
-    update();
   }
 }
 

@@ -55,6 +55,13 @@ class ProductDetailView extends StatelessWidget {
                   'SKUs:',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
+                SizedBox(height: 16),
+                GestureDetector(
+                  onTap: (){
+
+                  },
+                  child: Text('Add to Cart...............'),
+                ),
                 ...product.skus.map((sku) => _buildSkuDetail(sku)).toList(),
               ],
             ),

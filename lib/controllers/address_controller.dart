@@ -27,18 +27,18 @@ class AddressController extends GetxController {
     }
   }
 
-  Future<void> updateAddress(Address address) async {
+  Future<void> updateAddress(int id,Address address) async {
     try {
       isLoading.value = true;
-      Response response = await addressRepo.updateAddress(address);
+      Response response = await addressRepo.updateAddress(id,address);
       if (response.statusCode == 200) {
-        getAddresses(address.token!);
+        // getAddresses(address.token!);
         Get.snackbar('Success', 'Address updated successfully');
       } else {
         Get.snackbar('Error', response.statusText ?? 'Failed to update address');
       }
     } catch (e) {
-      Get.snackbar('Error', 'Failed to update address');
+      Get.snackbar('Error', 'Failed to update address'+e.toString());
     } finally {
       isLoading.value = false;
     }
@@ -49,7 +49,7 @@ class AddressController extends GetxController {
       isLoading.value = true;
       Response response = await addressRepo.deleteAddress(id, token);
       if (response.statusCode == 200) {
-        getAddresses(token);
+        // getAddresses(token);
         Get.snackbar('Success', 'Address deleted successfully');
       } else {
         Get.snackbar('Error', response.statusText ?? 'Failed to delete address');

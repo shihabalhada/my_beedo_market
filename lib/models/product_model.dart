@@ -1,13 +1,15 @@
 class Attribute {
   String mainAttribute;
+  int valueId;
   String value;
   String? color;
 
-  Attribute({required this.mainAttribute, required this.value, this.color});
+  Attribute({required this.mainAttribute,required this.valueId, required this.value, this.color});
 
   factory Attribute.fromJson(Map<String, dynamic> json) {
     return Attribute(
       mainAttribute: json['main_attribute'],
+      valueId:json['id'],
       value: json['value'],
       color: json['color'],
     );
@@ -16,6 +18,7 @@ class Attribute {
   Map<String, dynamic> toJson() {
     return {
       'main_attribute': mainAttribute,
+      'id':valueId,
       'value': value,
       'color': color,
     };

@@ -6,9 +6,12 @@ class CategoryController extends GetxController {
   final CategoryRepo categoryRepo;
   bool isLoading = false;
   List<Category> categories = [];
+  List<Category> categoriesById = [];
 
 
   CategoryController({required this.categoryRepo});
+
+
 
   Future<void> fetchCategories() async {
     try {
@@ -25,6 +28,29 @@ class CategoryController extends GetxController {
       }
     } catch (e) {
       Get.snackbar('Error', 'Failed to fetch categories.......');
+    } finally {
+      isLoading = false;
+      update();
+    }
+  }
+
+  Future<void> getCategoryById(int id) async{
+    try {
+      isLoading = true;
+      update();
+
+      Response response = await categoryRepo.getCategoriesById(id);
+
+      if (response.statusCode == 200) {
+        if(response.body !=null){
+          var categoryByIdList = response.body as List;
+          categoriesById = categoryByIdList.map((c) => Category.fromJson(c)).toList();
+        }
+      } else {
+        Get.snackbar('Error', response.statusText ?? 'Failed to fetch categories');
+      }
+    } catch (e) {
+      Get.snackbar('Error', 'Failed to fetch categories.......'+e.toString());
     } finally {
       isLoading = false;
       update();

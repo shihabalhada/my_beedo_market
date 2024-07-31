@@ -1,73 +1,66 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:my_beedo_market/data/repository/favorite_repo.dart';
 import 'package:my_beedo_market/models/favorite_model.dart';
 
-class FavoriteController extends GetxController {
-  final FavoriteRepo favoriteRepo;
-  final GetStorage storage = GetStorage();
-  var favoriteMethod = <FavoriteModel>[].obs;
-  bool isLoading = false;
+class FavoriteController{
+  final GetStorage _storage = GetStorage();
 
-  FavoriteController({required this.favoriteRepo});
+  void saveCart(Map<int, FavoriteModel> favorite) {
+    // Convert CartModule objects to JSON
+    int userId = _storage.read('user_id');
+    Map<String, dynamic> jsonMap = favorite.map((key, value) => MapEntry(key.toString(), value.toJson()));
+    _storage.write("favorite$userId", jsonMap);
+  }
 
-  Future<void> addToFavorite(FavoriteModel favoriteModel) async {
-    try {
-      isLoading = true;
-      update();
+  Map<int, FavoriteModel> loadCart() {
+    int userId = _storage.read('user_id');
+    Map<String, dynamic> jsonMap = _storage.read<Map<String, dynamic>>("favorite$userId") ?? {};
+    // Convert JSON back to CartModule objects
+    return jsonMap.map((key, value) => MapEntry(int.parse(key), FavoriteModel.fromJson(value)));
+  }
 
-      Response response = await favoriteRepo.addToFavorite(favoriteModel.toJson());
+  void addFavorite(FavoriteModel favorite){
+    Map<int,FavoriteModel> theFavorite = loadCart();
+      theFavorite.putIfAbsent(favorite.id, (){
+        return FavoriteModel(
+          id: favorite.id,
+          name: favorite.name,
+          desc: favorite.desc,
+          img: favorite.img,
+          price: favorite.price,
+          quantity: favorite.quantity,
+          isFavorit: favorite.isFavorit,
+        );
+      });
+      saveCart(theFavorite);
+      Get.snackbar('Success', 'add to favorite success');
+  }
 
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        Get.snackbar('Success', 'Product added to favorites successfully');
-      } else {
-        Get.snackbar('Error', response.statusText ?? 'Failed to add to favorites');
-      }
-    } catch (e) {
-      Get.snackbar('Error', 'Failed to add to favorites');
-    } finally {
-      isLoading = false;
-      update();
+  void deleteFavorite(int id){
+    Map<int,FavoriteModel> theFavorite = loadCart();
+    if(theFavorite.containsKey(id)){
+      theFavorite.remove(id);
+      saveCart(theFavorite);
+      Get.snackbar('Success', 'remove from favorite success');
+    }else{
+      Get.snackbar('Error', 'not found');
     }
   }
 
-  Future<void> getFavorite(FavoriteModel favoriteModel) async{
-    try {
-      isLoading=true;
-      Response response = await favoriteRepo.getFavorite(favoriteModel.toJson());
-
-      if (response.statusCode == 200) {
-        var favoriteList = response.body as List;
-        favoriteMethod.value = favoriteList.map((json) => FavoriteModel.fromJson(json)).toList();
-
-      } else {
-        Get.snackbar('Error', 'Failed to fetch Favorite');
-      }
-    } catch (e) {
-      Get.snackbar('Error', 'Failed to fetch Favorite');
-    } finally {
-      isLoading=false;
+  bool isFavorite(int id){
+    Map<int,FavoriteModel> theFavorite = loadCart();
+    if(theFavorite.containsKey(id)){
+      return true;
+    }else{
+      return false;
     }
   }
 
-
-  Future<void> deleteFromFavorite(FavoriteModel favoriteModel) async {
-    try {
-      isLoading = true;
-      update();
-
-      Response response = await favoriteRepo.deleteFromFavorite(favoriteModel.toJson());
-
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        Get.snackbar('Success', 'Product removed from favorites successfully');
-      } else {
-        Get.snackbar('Error', response.statusText ?? 'Failed to remove from favorites');
-      }
-    } catch (e) {
-      Get.snackbar('Error', 'Failed to remove from favorites');
-    } finally {
-      isLoading = false;
-      update();
-    }
+  List<FavoriteModel> get getItems{
+    Map<int,FavoriteModel> theFavorite = loadCart();
+    return theFavorite.entries.map((e){
+      return e.value;
+    }).toList();
   }
+
 }

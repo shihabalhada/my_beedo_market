@@ -1,3 +1,4 @@
+import 'package:my_beedo_market/pages/cart_page.dart';
 import 'package:my_beedo_market/pages/login_page.dart';
 import 'package:my_beedo_market/pages/payment_page.dart';
 import 'package:my_beedo_market/pages/product_by_category.dart';
@@ -19,6 +20,7 @@ class RouteHelper {
   static const String productByCategoryId="/productByCategoryId";
   static const String address="/address";
   static const String profile="/profile";
+  static const String cart="/cart";
 
   static String getHome() => home;
 
@@ -35,6 +37,8 @@ class RouteHelper {
   static String getAddress() => address;
 
   static String getProfile() => profile;
+
+  static String getCart() => cart;
 
   static List<GetPage> routes = [
     GetPage(
@@ -70,6 +74,12 @@ class RouteHelper {
         name: profile,
         page: (){
           return ProfilePage();
+        }
+    ),
+    GetPage(
+        name: cart,
+        page: (){
+          return const CartPage();
         }
     ),
     GetPage(

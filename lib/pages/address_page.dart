@@ -212,7 +212,9 @@ class AddressForm extends StatelessWidget {
               if (address.id == null) {
                 addressController.addAddress(updatedAddress);
               } else {
-                addressController.updateAddress(updatedAddress);
+                int add_id = updatedAddress.id!;
+                updatedAddress.id=null;
+                addressController.updateAddress(add_id,updatedAddress);
               }
 
               Get.back();

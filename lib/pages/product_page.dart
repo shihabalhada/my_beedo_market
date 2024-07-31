@@ -1,5 +1,7 @@
 import 'package:my_beedo_market/controllers/address_controller.dart';
+import 'package:my_beedo_market/controllers/cart_controller.dart';
 import 'package:my_beedo_market/controllers/categories_controller.dart';
+import 'package:my_beedo_market/models/cart_model.dart';
 import 'package:my_beedo_market/pages/category_page.dart';
 import 'package:my_beedo_market/routes/route_helper.dart';
 import 'package:flutter/material.dart';
@@ -10,13 +12,25 @@ import 'package:my_beedo_market/pages/product_details_page.dart';
 
 import '../controllers/payment_controller.dart';
 
-class ProductView extends StatelessWidget {
-  final ProductController productController = Get.find<ProductController>();
+class ProductView extends StatefulWidget {
+  @override
+  State<ProductView> createState() => _ProductViewState();
+}
 
+class _ProductViewState extends State<ProductView> {
+  final ProductController productController = Get.find<ProductController>();
+  final CategoryController categoryController = Get.find<CategoryController>();
+
+  @override
+  void initState() {
+    categoryController.fetchCategories();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     // productController.getProducts();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Products'),
@@ -38,6 +52,13 @@ class ProductView extends StatelessWidget {
                 Get.toNamed(RouteHelper.getAddress());
               },
               child: Text("Address"),
+            ),
+            SizedBox(height: 10,),
+            GestureDetector(
+              onTap: () async{
+                Get.toNamed(RouteHelper.getCart());
+              },
+              child: Text("Cart"),
             ),
             SizedBox(height: 10,),
             GestureDetector(

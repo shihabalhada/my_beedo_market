@@ -11,5 +11,8 @@ class CategoryRepo extends GetxService {
   Future<Response> getCategories() async {
     return await apiClient.getData(AppConstants.CATEGORIES_URI);
   }
+  Future<Response> getCategoriesById(int id) async {
 
+    return await apiClient.getData("${AppConstants.CATEGORIES_BY_ID_URI}$id/");
+  }
 }

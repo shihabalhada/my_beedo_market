@@ -12,18 +12,15 @@ class AddressRepo extends GetxService {
     return await apiClient.postData(AppConstants.ADD_ADDRESS_URI, address.toJson());
   }
 
-  Future<Response> updateAddress(Address address) async {
-    return await apiClient.postData(AppConstants.UPDATE_ADDRESS_URI, address.toJson());
+  Future<Response> updateAddress(int id,Address address) async {
+    return await apiClient.postData(AppConstants.UPDATE_ADDRESS_URI+'$id', address.toJson());
   }
 
   Future<Response> deleteAddress(int id, String token) async {
-    return await apiClient.getData('${AppConstants.DELETE_ADDRESS_URI}/$id',);
+    return await apiClient.getData('${AppConstants.DELETE_ADDRESS_URI}$id?token=$token');
   }
 
   Future<Response> getAddresses(String token) async {
-    // Map<String, dynamic> body = [
-    //   'token',token
-    // ] as Map<String, dynamic>;
     return await apiClient.getData(AppConstants.GET_ADDRESSES_URI+"?token=$token");
   }
 }

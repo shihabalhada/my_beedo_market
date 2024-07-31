@@ -20,7 +20,11 @@ class LoginController extends GetxController {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         String token = response.body['access_token'];
+        int cart_id = response.body['cart_id'];
+        int user_id = response.body['user_id'];
         await storage.write('token', token);
+        await storage.write('cart_id', cart_id);
+        await storage.write('user_id', user_id);
         Get.toNamed(RouteHelper.home);
         Get.snackbar('Success', 'User logged in successfully');
       } else {

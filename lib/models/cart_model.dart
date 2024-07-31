@@ -1,32 +1,30 @@
-class FavoriteModel {
+// import 'dart:nativewrappers/_internal/vm/lib/core_patch.dart';
 
+class CartModule {
   int id;
   String name;
   String desc;
   String img;
   int price;
   int quantity;
-  bool isFavorit;
 
-  FavoriteModel({
+  CartModule({
     required this.id,
     required this.name,
     required this.desc,
     required this.img,
     required this.price,
     required this.quantity,
-    required this.isFavorit,
   });
 
-  factory FavoriteModel.fromJson(Map<String, dynamic> json) {
-    return FavoriteModel(
+  factory CartModule.fromJson(Map<String, dynamic> json) {
+    return CartModule(
       id: json['id'],
       name: json['name'],
       desc: json['desc'],
       img: json['img'],
       price: json['price'],
       quantity: json['quantity'],
-      isFavorit: json['isFavorit'],
     );
   }
 
@@ -38,7 +36,6 @@ class FavoriteModel {
       'img': img,
       'price': price,
       'quantity': quantity,
-      'isFavorit': isFavorit,
     };
   }
 }

@@ -34,6 +34,7 @@ class CategoryPage extends StatelessWidget {
                   title: GestureDetector(
                     onTap: () {
                       // Get.lazyPut(()=>CategoriesByIdController(categoriesByIdRepo: Get.find()));
+                      Get.find<CategoryController>().getCategoryById(category.id);
                       Get.toNamed(RouteHelper.getProductByCategoryId(category.id));
                     },
                       child: Text(subCategory.name+" "+subCategory.id.toString()),
