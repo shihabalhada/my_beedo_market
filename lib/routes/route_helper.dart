@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:my_beedo_market/pages/cart_page.dart';
 import 'package:my_beedo_market/pages/login_page.dart';
 import 'package:my_beedo_market/pages/payment_page.dart';
@@ -5,22 +6,22 @@ import 'package:my_beedo_market/pages/product_by_category.dart';
 import 'package:my_beedo_market/pages/product_details_page.dart';
 import 'package:my_beedo_market/pages/product_page.dart';
 import 'package:my_beedo_market/pages/profile_page.dart';
+import 'package:my_beedo_market/pages/setting_page.dart';
 import 'package:my_beedo_market/pages/signup_page.dart';
-import 'package:get/get.dart';
 
 import '../pages/address_page.dart';
-
 
 class RouteHelper {
   static const String home = "/";
   static const String signUp = "/sign-up";
   static const String login = "/login";
-  static const String product="/product";
-  static const String payment="/payment";
-  static const String productByCategoryId="/productByCategoryId";
-  static const String address="/address";
-  static const String profile="/profile";
-  static const String cart="/cart";
+  static const String product = "/product";
+  static const String payment = "/payment";
+  static const String productByCategoryId = "/productByCategoryId";
+  static const String address = "/setting/address";
+  static const String profile = "/setting/profile";
+  static const String cart = "/cart";
+  static const String setting = "/setting";
 
   static String getHome() => home;
 
@@ -28,11 +29,14 @@ class RouteHelper {
 
   static String getLogin() => login;
 
+  static String getSetting() => setting;
+
   static String getPayment() => payment;
 
   static String getProduct(int productId) => "$product?productId=$productId";
 
-  static String getProductByCategoryId(int categoryId) => "$productByCategoryId?categoryId=$categoryId";
+  static String getProductByCategoryId(int categoryId) =>
+      "$productByCategoryId?categoryId=$categoryId";
 
   static String getAddress() => address;
 
@@ -48,40 +52,39 @@ class RouteHelper {
         }),
     GetPage(
         name: signUp,
-        page: (){
+        page: () {
           return SignupPage();
-        }
-    ),
+        }),
+    GetPage(
+        name: setting,
+        page: () {
+          return const SettingPage();
+        }),
     GetPage(
         name: login,
-        page: (){
+        page: () {
           return LoginPage();
-        }
-    ),
+        }),
     GetPage(
         name: payment,
-        page: (){
+        page: () {
           return PaymentPage();
-        }
-    ),
+        }),
     GetPage(
         name: address,
-        page: (){
+        page: () {
           return AddressPage();
-        }
-    ),
+        }),
     GetPage(
         name: profile,
-        page: (){
+        page: () {
           return ProfilePage();
-        }
-    ),
+        }),
     GetPage(
         name: cart,
-        page: (){
+        page: () {
           return const CartPage();
-        }
-    ),
+        }),
     GetPage(
       name: product,
       page: () {
@@ -98,6 +101,5 @@ class RouteHelper {
       },
       transition: Transition.fadeIn,
     ),
-
   ];
 }

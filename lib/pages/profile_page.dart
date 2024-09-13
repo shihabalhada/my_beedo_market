@@ -16,67 +16,160 @@ class ProfilePage extends StatelessWidget {
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
-  final TextEditingController genderController = TextEditingController();
   final TextEditingController birthdayController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  String? selectedGender;
 
   ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     String token = GetStorage().read('token');
     profileController.fetchProfile(token);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile'),
+        title: Text(
+          'Profile',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 24.0,
+          ),
+        ),
+        backgroundColor: const Color(0xFFE27A22),
       ),
       body: Obx(() {
         if (profileController.isLoading.value) {
           return Center(child: CircularProgressIndicator());
         }
 
+        // Convert the fetched gender to uppercase to match the dropdown values
         nameController.text = profileController.profile.first.name;
         phoneController.text = profileController.profile.first.phone ?? '';
-        genderController.text = profileController.profile.first.gender ?? '';
-        birthdayController.text = profileController.profile.first.birthday ?? '';
+        selectedGender = profileController.profile.first.gender
+            ?.toUpperCase(); // Ensure it's uppercase
+        birthdayController.text =
+            profileController.profile.first.birthday ?? '';
 
-        return Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              TextField(
-                controller: nameController,
-                decoration: InputDecoration(labelText: 'Name'),
-              ),
-              TextField(
-                controller: phoneController,
-                decoration: InputDecoration(labelText: 'Phone'),
-              ),
-              TextField(
-                controller: genderController,
-                decoration: InputDecoration(labelText: 'Gender'),
-              ),
-              TextField(
-                controller: birthdayController,
-                decoration: InputDecoration(labelText: 'Birthday'),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  final updatedProfile = Profile(
-                    // email: profileController.profile.first.email,
-                    token: token,
-                    name: nameController.text,
-                    phone: phoneController.text,
-                    gender: genderController.text,
-                    birthday: birthdayController.text,
-                  );
+        return SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    controller: nameController,
+                    keyboardType: TextInputType.name,
+                    decoration: const InputDecoration(
+                      labelText: 'Name',
+                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(Icons.person),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Name is required';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    controller: phoneController,
+                    decoration: const InputDecoration(
+                      labelText: 'Phone',
+                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(Icons.phone),
+                    ),
+                    validator: (value) {
+                      if (value?.length != 9 || value == null) {
+                        return 'Phone Number must be of 9 digits';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: DropdownButtonFormField<String>(
+                    decoration: const InputDecoration(
+                      labelText: 'Gender',
+                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(Icons.person),
+                    ),
+                    value: selectedGender,
+                    items: const [
+                      DropdownMenuItem(value: 'M', child: Text('Male')),
+                      DropdownMenuItem(value: 'F', child: Text('Female')),
+                    ],
+                    onChanged: (String? newValue) {
+                      selectedGender = newValue;
+                    },
+                    validator: (value) {
+                      if (value == null) {
+                        return 'Please select a gender';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    controller: birthdayController,
+                    decoration: const InputDecoration(
+                      labelText: 'Birthday',
+                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(Icons.calendar_month),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Material(
+                      color: const Color(0xFFE27A22),
+                      borderRadius: BorderRadius.circular(10),
+                      child: InkWell(
+                        onTap: () {
+                          if (_formKey.currentState!.validate()) {
+                            final updatedProfile = Profile(
+                              token: token,
+                              name: nameController.text,
+                              phone: phoneController.text,
+                              gender: selectedGender,
+                              birthday: birthdayController.text,
+                            );
 
-                  Get.find<ProfileController>().updateProfile(updatedProfile);
-                },
-                child: Text('Update Profile'),
-              ),
-            ],
+                            Get.find<ProfileController>()
+                                .updateProfile(updatedProfile);
+                          }
+                        },
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 40),
+                          child: Center(
+                            child: Text(
+                              "Update Profile",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       }),

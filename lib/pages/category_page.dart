@@ -24,23 +24,36 @@ class CategoryPage extends StatelessWidget {
 
         return ListView.builder(
           shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
           itemCount: categoryController.categories.length,
           itemBuilder: (context, index) {
             var category = categoryController.categories[index];
-            return ExpansionTile(
-              title: Text(category.name+" "+category.id.toString()),
-              children: category.subCategories.map((subCategory) {
-                return ListTile(
-                  title: GestureDetector(
-                    onTap: () {
-                      // Get.lazyPut(()=>CategoriesByIdController(categoriesByIdRepo: Get.find()));
-                      Get.find<CategoryController>().getCategoryById(category.id);
-                      Get.toNamed(RouteHelper.getProductByCategoryId(category.id));
-                    },
-                      child: Text(subCategory.name+" "+subCategory.id.toString()),
+            return Container(
+              height: 50,
+              margin:
+              const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              decoration: BoxDecoration(
+                color: const Color(0xFFF4F6FA),
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 4,
+                    spreadRadius: 2,
                   ),
-                );
-              }).toList(),
+                ],
+              ),
+              child: Center(
+                child: Text(
+                  category.name,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black54,
+                  ),
+                ),
+              ),
             );
           },
         );
